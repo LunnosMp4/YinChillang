@@ -13,11 +13,6 @@
 #include "raylib.h"
 #include "raymath.h"
 
-class Yinchillang {
-    public:
-        Yinchillang();
-        ~Yinchillang();
 
-    protected:
-    private:
-};
+#include "Game.hpp"
+

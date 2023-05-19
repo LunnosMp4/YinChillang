@@ -17,7 +17,7 @@ CC = g++
 FILES_SOURCE = src
 
 # Change this to your include folder, leave blank if you don't have one
-INCLUDE_SOURCE = include
+INCLUDE_SOURCE = include/
 
 # Add your flags here
 CFLAGS = -W -Wall -Wextra -std=c++17
@@ -41,7 +41,7 @@ SRC = $(shell find $(FILES_SOURCE) -name "*.$(FILES_EXTENTION)")
 
 OBJ = $(SRC:.$(FILES_EXTENTION)=.o)
 
-CPPFLAGS = -I./$(INCLUDE_SOURCE) -I./src/Main/ -I./src/Primitives/ -I./src/PostProcessor/
+CPPFLAGS = -I./$(INCLUDE_SOURCE) -I./src/
 
 ifeq ($(NAME),)
 	NAME = program
