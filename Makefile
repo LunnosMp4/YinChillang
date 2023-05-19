@@ -22,7 +22,7 @@ INCLUDE_SOURCE = include
 # Add your flags here
 CFLAGS = -W -Wall -Wextra -std=c++17
 
-LDFLAGS = -lraylib
+LDFLAGS = -lraylib -lpthread -ldl
 
 # Change this to your program name
 NAME = YinChillang
