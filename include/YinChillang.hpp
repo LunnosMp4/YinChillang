@@ -24,4 +24,4 @@ class Yinchillang {
     private:
 };
 
-#endif /* !KITCHEN_HPP_ */
+#endif /* !YINCHILLLANG_HPP_ */
