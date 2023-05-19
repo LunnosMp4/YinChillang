@@ -7,13 +7,11 @@
 
 #pragma once
 
-#ifndef YINCHILLANG_HPP_
-    #define YINCHILLANG_HPP_
-    #include <iostream>
-    #include <fstream>
-    #include <cmath>
-    #include "raymath.h"
-    #include "raylib.h"
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include "raylib.h"
+#include "raymath.h"
 
 class Yinchillang {
     public:
@@ -23,5 +21,3 @@ class Yinchillang {
     protected:
     private:
 };
-
-#endif /* !YINCHILLLANG_HPP_ */
