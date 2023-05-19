@@ -20,11 +20,11 @@ int main(void)
     Vector2 prevMousePosition = { 0 };
 
     Model groundModel = LoadModel("ressources/yinyang.obj");
-    Texture2D texture1 = LoadTexture("ressources/black-marble.jpg");
-    Texture2D texture2 = LoadTexture("ressources/white-marble.jpg");
+    Texture2D texture1 = LoadTexture("ressources/black-marble.png");
+    Texture2D texture2 = LoadTexture("ressources/white-marble.png");
 
     groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture1;
-    groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture2;
+    groundModel.materials[0].maps[MATERIAL_MAP_NORMAL].texture = texture2;
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
