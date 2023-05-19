@@ -4,8 +4,8 @@
 
 int main(void)
 {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1280;
+    const int screenHeight = 720;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera mode");
 
@@ -20,11 +20,11 @@ int main(void)
     Vector2 prevMousePosition = { 0 };
 
     Model groundModel = LoadModel("ressources/yinyang.obj");
-    Texture2D texture1 = LoadTexture("ressources/black-marble.png");
-    Texture2D texture2 = LoadTexture("ressources/white-marble.png");
+    Texture2D texture1 = LoadTexture("ressources/black-marble.jpg");
+    Texture2D texture2 = LoadTexture("ressources/white-marble.jpg");
 
     groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture1;
-    groundModel.materials[0].maps[MATERIAL_MAP_NORMAL].texture = texture2;
+    groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture2;
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
