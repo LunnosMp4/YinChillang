@@ -5,10 +5,7 @@
 #include "Game.hpp"
 
 Game::Game() {
-    const int screenWidth = 1280;
-    const int screenHeight = 720;
-
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera mode");
+    InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
 
     _camera.position = (Vector3){ 0.0f, 40.0f, 40.0f };
     _camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
@@ -73,16 +70,20 @@ void Game::update() {
 
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    BeginMode3D(_camera);
 }
 
 void Game::draw() {
+    BeginMode3D(_camera);
     DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
 
     DrawCube(_cubePosition, 2.0f, 2.0f, 2.0f, RED);
     DrawCubeWires(_cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
 
     EndMode3D();
+
+    if (_mousePosition.x > 0 && _mousePosition.x < _screenWidth && _mousePosition.y > 0 && _mousePosition.y < _screenHeight)
+            DrawCircle(_mousePosition.x, _mousePosition.y, 10, RED);
+
     DrawFPS(10, 10);
     EndDrawing();
 }

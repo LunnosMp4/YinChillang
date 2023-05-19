@@ -39,6 +39,8 @@ class Game {
         Player _player;
         Enemy _enemy;
         Level _level;
+        const int _screenWidth = 1280;
+        const int _screenHeight = 720;
         Camera3D _camera = { 0 }; // TODO Fix les warnings
         Vector2 _mousePosition = { 0 };
         Vector2 _prevMousePosition = { 0 };
