@@ -32,6 +32,7 @@ int main(void)
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
+    DisableCursor();
     SetTargetFPS(144);
 
     // Main game loop
@@ -40,17 +41,8 @@ int main(void)
         // Update
         prevMousePosition = mousePosition;
         mousePosition = GetMousePosition();
-
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-        {
-            float deltaX = (mousePosition.x - prevMousePosition.x) * 0.01f;
-
-            float radius = sqrt(pow(camera.position.x, 2) + pow(camera.position.z, 2));
-            float angle = atan2(camera.position.z, camera.position.x) + deltaX;
-
-            camera.position.x = radius * cos(angle);
-            camera.position.z = radius * sin(angle);
-        }
+            UpdateCamera(&camera, CAMERA_THIRD_PERSON);
 
         if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON))
         {
