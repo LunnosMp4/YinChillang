@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cmath>
-#include "raylib.h"
-#include "raymath.h"
+#include "YinChillang.hpp"
 
 int main(void)
 {
@@ -41,6 +38,7 @@ int main(void)
         // Update
         prevMousePosition = mousePosition;
         mousePosition = GetMousePosition();
+
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             UpdateCamera(&camera, CAMERA_THIRD_PERSON);
 
