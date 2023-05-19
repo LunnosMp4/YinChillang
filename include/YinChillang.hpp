@@ -1,6 +1,27 @@
+/*
+** EPITECH PROJECT, 2023
+** YinChillang
+** File description:
+** YinChillang
+*/
+
 #pragma once
 
-#include <iostream>
-#include <cmath>
-#include "raylib.h"
-#include "raymath.h"
+#ifndef YINCHILLANG_HPP_
+    #define YINCHILLANG_HPP_
+    #include <iostream>
+    #include <fstream>
+    #include <cmath>
+    #include "raymath.h"
+    #include "raylib.h"
+
+class Yinchillang {
+    public:
+        Yinchillang();
+        ~Yinchillang();
+
+    protected:
+    private:
+};
+
+#endif /* !KITCHEN_HPP_ */
