@@ -15,7 +15,9 @@ Player::Player(Vector3 position)
     _speed = 20.0f;
 }
 
-Player::~Player() = default;
+Player::~Player() {
+    UnloadModel(_modelPlayer);
+}
 
 void Player::move()
 {
@@ -23,21 +25,32 @@ void Player::move()
         _position.z -= _speed * GetFrameTime();
         _boundingPlayer.min.z -= _speed * GetFrameTime();
         _boundingPlayer.max.z -= _speed * GetFrameTime();
+        // rotate player
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 180);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateX(DEG2RAD * 90));
     }
     if (IsKeyDown(KEY_S)) { // Reculer
         _position.z += _speed * GetFrameTime();
         _boundingPlayer.min.z += _speed * GetFrameTime();
         _boundingPlayer.max.z += _speed * GetFrameTime();
+        // rotate player
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 0);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateX(DEG2RAD * -90));
     }
     if (IsKeyDown(KEY_A)) { // Gauche
         _position.x -= _speed * GetFrameTime();
         _boundingPlayer.min.x -= _speed * GetFrameTime();
         _boundingPlayer.max.x -= _speed * GetFrameTime();
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 270);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateZ(DEG2RAD * -90));
+
     }
     if (IsKeyDown(KEY_D)) { // Droite
         _position.x += _speed * GetFrameTime();
         _boundingPlayer.min.x += _speed * GetFrameTime();
         _boundingPlayer.max.x += _speed * GetFrameTime();
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 90);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateZ(DEG2RAD * 90));
     }
 }
 
@@ -60,8 +73,8 @@ void Player::update()
     _boundingPlayer.max.y += _velocity.y * GetFrameTime();
 
     // Check if the player has reached the ground
-    if (_position.y <= 1.5f) {
-        _position.y = 1.5f;
+    if (_position.y <= 0.0f) {
+        _position.y = 0.0f;
         _velocity.y = 0.0f;
         _isGrounded = true;
     }
@@ -71,7 +84,6 @@ void Player::update()
 
 void Player::draw()
 {
-    DrawCube(_position, 5.0f, 5.0f, 5.0f, RED);
-    DrawCubeWires(_position, 5.0f, 5.0f, 5.0f, MAROON);
-    DrawCube(_shadowPosition, 5.0f, 0.1f, 5.0f, Fade(BLACK, 0.5f));
+    DrawModel(_modelPlayer, _position, 0.1f, WHITE);
+    DrawCube(_shadowPosition, 5.0f, 0.2f, 5.0f, Fade(BLACK, 0.5f));
 }

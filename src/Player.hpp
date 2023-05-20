@@ -14,10 +14,12 @@ class Player: public GameObject
         void update();
         void draw();
         void move();
+        void setModel(Model model) { _modelPlayer = model; }
         Vector3 getPosition() { return _position; }
         BoundingBox getBoundingBox() { return _boundingPlayer; }
 
     private:
+        Model _modelPlayer;
         Vector3 _position{};
         Vector3 _shadowPosition{};
         Vector3 _velocity{};
