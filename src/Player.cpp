@@ -52,6 +52,23 @@ void Player::move()
         _modelPlayer.transform = MatrixRotateY(DEG2RAD * 90);
         _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateZ(DEG2RAD * 90));
     }
+
+    if (IsKeyDown(KEY_W) && IsKeyDown(KEY_A)) { // Avancer + Gauche
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 225);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ 1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
+    }
+    if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) { // Avancer + Droite
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 135);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ 1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
+    }
+    if (IsKeyDown(KEY_S) && IsKeyDown(KEY_A)) { // Reculer + Gauche
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 315);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ -1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
+    }
+    if (IsKeyDown(KEY_S) && IsKeyDown(KEY_D)) { // Reculer + Droite
+        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 45);
+        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ -1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
+    }
 }
 
 void Player::update()
