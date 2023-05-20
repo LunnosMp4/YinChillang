@@ -14,7 +14,48 @@ class GameObject {
 };
 
 class Player : public GameObject {
-    // Définissez les propriétés et les méthodes spécifiques au joueur
+    public:
+        Player(Vector3 position) {
+            _position = position;
+            _velocity = { 0.0f, 0.0f, 0.0f };
+            _jumpHeight = 8.0f;
+            _gravity = 9.81f;
+            _isGrounded = true;
+        }
+
+        void update() {
+            // Handle jumping
+            if (IsKeyPressed(KEY_SPACE) && _isGrounded) {
+                _velocity.y = _jumpHeight;
+                _isGrounded = false;
+            }
+
+            // Apply gravity
+            if (!_isGrounded) {
+                _velocity.y -= _gravity * GetFrameTime();
+            }
+
+            // Update player position based on velocity
+            _position.y += _velocity.y * GetFrameTime();
+
+            // Check if the player has reached the ground
+            if (_position.y <= 0.0f) {
+                _position.y = 0.0f;
+                _velocity.y = 0.0f;
+                _isGrounded = true;
+            }
+        }
+
+        void draw() {
+            DrawCube(_position, 2.0f, 2.0f, 2.0f, RED);
+        }
+
+    private:
+        Vector3 _position;
+        Vector3 _velocity;
+        float _jumpHeight;
+        float _gravity;
+        bool _isGrounded;
 };
 
 class Enemy : public GameObject {
@@ -40,15 +81,14 @@ class Game {
         Enemy _enemy;
         Level _level;
         bool _cameraMovementEnabled;
-        const int _screenWidth = 1280;
-        const int _screenHeight = 720;
+        const int _screenWidth;
+        const int _screenHeight;
         Camera3D _camera;
         Vector2 _mousePosition;
         Vector2 _prevMousePosition;
         Model _groundModel;
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;
-        Vector3 _cubePosition;
         BoundingBox _boxTable;
     // Ajoutez d'autres propriétés et méthodes privées selon les besoins
 };

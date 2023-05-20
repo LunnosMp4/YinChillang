@@ -5,7 +5,7 @@
 #include "Game.hpp"
 #include <iostream>
 
-Game::Game() {
+Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
 
     _camera.position = (Vector3){ 0.0f, 40.0f, 40.0f };
@@ -29,7 +29,6 @@ Game::Game() {
             (Vector3){510.0f, 2.0f, 510.0f}
     };
 
-    _cubePosition = { 0.0f, 0.0f, 0.0f };
 
     DisableCursor();
     SetTargetFPS(144);
@@ -52,6 +51,7 @@ void Game::run() {
 void Game::update() {
     _prevMousePosition = _mousePosition;
     _mousePosition = GetMousePosition();
+    _player.update();
 
     BoundingBox cameraBox = { (Vector3){ _camera.position.x - 0.5f, _camera.position.y - 1.0f, _camera.position.z - 0.5f },
                               (Vector3){ _camera.position.x + 0.5f, _camera.position.y + 1.0f, _camera.position.z + 0.5f } };
@@ -86,10 +86,8 @@ void Game::update() {
 
 void Game::draw() {
     BeginMode3D(_camera);
+    _player.draw();
     DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
-
-    DrawCube(_cubePosition, 2.0f, 2.0f, 2.0f, RED);
-    DrawCubeWires(_cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
 
     EndMode3D();
 
