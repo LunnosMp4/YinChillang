@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "YinChilang.h"
+#include "YinChillang.hpp"
+#include "Player.hpp"
 
-class Enemy : public GameObject {
+class Enemy {
     // Définissez les propriétés et les méthodes spécifiques à l'ennemi
 };
 

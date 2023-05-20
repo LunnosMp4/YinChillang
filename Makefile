@@ -41,7 +41,7 @@ SRC = $(shell find $(FILES_SOURCE) -name "*.$(FILES_EXTENTION)")
 
 OBJ = $(SRC:.$(FILES_EXTENTION)=.o)
 
-CPPFLAGS = -I./$(INCLUDE_SOURCE) -I./src/
+CPPFLAGS = -I./$(INCLUDE_SOURCE) -I./src/ -I./include/
 
 ifeq ($(NAME),)
 	NAME = program

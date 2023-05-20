@@ -4,11 +4,11 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
+Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
 
-    _camera.position = (Vector3){ 0.0f, 40.0f, 40.0f };
-    _camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    _camera.position = (Vector3){ 60.0f, 40.0f, 60.0f };
+    _camera.target = (Vector3){ 15.0f, 0.0f, 15.0f };
     _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     _camera.fovy = 45.0f;
     _camera.projection = CAMERA_PERSPECTIVE;
@@ -71,9 +71,6 @@ void Game::update() {
     } else
         _cameraMovementEnabled = true;
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && _cameraMovementEnabled)
-        UpdateCamera(&_camera, CAMERA_THIRD_PERSON);
-
     if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON))
     {
         float deltaX = (_mousePosition.x - _prevMousePosition.x) * 0.01f;
@@ -88,14 +85,12 @@ void Game::update() {
 
         _prevMousePosition = _mousePosition;
     }
-
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
 }
 
 void Game::draw() {
-    BeginMode3D(_camera);
     BeginDrawing();
+    ClearBackground(RAYWHITE);
+    BeginMode3D(_camera);
     _player.draw();
     DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
 

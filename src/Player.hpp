@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "YinChilang.h"
+#include "YinChillang.hpp"
 
-class Player : public GameObject {
+class Player {
     public:
         Player(Vector3 position);
         ~Player();

@@ -49,8 +49,8 @@ void Player::update() {
     _position.y += _velocity.y * GetFrameTime();
 
     // Check if the player has reached the ground
-    if (_position.y <= 0.0f) {
-        _position.y = 0.0f;
+    if (_position.y <= 1.5f) {
+        _position.y = 1.5f;
         _velocity.y = 0.0f;
         _isGrounded = true;
     }
@@ -59,7 +59,7 @@ void Player::update() {
 }
 
 void Player::draw() {
-    DrawCube(_position, 2.0f, 2.0f, 2.0f, RED);
-    DrawCubeWires(_position, 2.0f, 2.0f, 2.0f, MAROON);
-    DrawCube(_shadowPosition, 2.0f, 0.1f, 2.0f, Fade(BLACK, 0.5f));
+    DrawCube(_position, 5.0f, 5.0f, 5.0f, RED);
+    DrawCubeWires(_position, 5.0f, 5.0f, 5.0f, MAROON);
+    DrawCube(_shadowPosition, 5.0f, 0.1f, 5.0f, Fade(BLACK, 0.5f));
 }
