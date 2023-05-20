@@ -34,10 +34,10 @@ class Player : public GameObject {
 
             // Gestion du mouvement du joueur
             if (IsKeyDown(KEY_W)) { // Avancer
-                _position.z += _speed * GetFrameTime();
+                _position.z -= _speed * GetFrameTime();
             }
             if (IsKeyDown(KEY_S)) { // Reculer
-                _position.z -= _speed * GetFrameTime();
+                _position.z += _speed * GetFrameTime();
             }
             if (IsKeyDown(KEY_A)) { // Gauche
                 _position.x -= _speed * GetFrameTime();
