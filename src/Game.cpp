@@ -4,7 +4,8 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
+Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(720)
+{
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
     InitAudioDevice();
@@ -45,7 +46,8 @@ Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(7
     SetTargetFPS(144);
 }
 
-Game::~Game() {
+Game::~Game()
+{
     UnloadTexture(_texture1);
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
@@ -55,7 +57,8 @@ Game::~Game() {
     CloseWindow();
 }
 
-void Game::run() {
+void Game::run()
+{
     PlayMusicStream(_musique);
     while (!WindowShouldClose()) {
         update();
@@ -64,7 +67,8 @@ void Game::run() {
     }
 }
 
-void Game::update() {
+void Game::update()
+{
     _prevMousePosition = _mousePosition;
     _mousePosition = GetMousePosition();
 
@@ -92,7 +96,8 @@ void Game::update() {
     }
 }
 
-void Game::draw() {
+void Game::draw()
+{
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
@@ -106,7 +111,8 @@ void Game::draw() {
     EndDrawing();
 }
 
-void Game::drawDebug() {
+void Game::drawDebug()
+{
     if (!_debugMode)
         return;
     UpdateCamera(&_camera, false);

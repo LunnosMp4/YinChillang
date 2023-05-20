@@ -6,7 +6,8 @@
 
 #include "YinChillang.hpp"
 
-class Player: public GameObject {
+class Player: public GameObject
+{
     public:
         explicit Player(Vector3 position);
         ~Player();

@@ -12,11 +12,11 @@
 
 class Scenes {
     public:
-        Scenes();
-        ~Scenes();
+        Scenes() = default;
+        ~Scenes() = default;
 
-        void StartMenu();
-        void HandleScene(int SceneToLaunch);
+        void startMenu();
+        void handleScene(int SceneToLaunch);
     protected:
     private:
         bool _IsRunning = false;

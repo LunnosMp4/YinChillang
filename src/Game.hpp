@@ -14,7 +14,8 @@ class Level {
     // Définissez les propriétés et les méthodes pour gérer les niveaux du jeu
 };
 
-class Game {
+class Game
+{
     public:
         Game();
         ~Game();

@@ -14,6 +14,5 @@ int main()
     Scenes scene;
 
     scene.HandleScene(1);
-    // game.run();
     return 0;
 }

@@ -8,21 +8,14 @@
 #include "Scenes.hpp"
 #include "Game.hpp"
 
-Scenes::Scenes() {}
+void Scenes::startMenu() {}
 
-Scenes::~Scenes() {}
-
-void Scenes::StartMenu()
-{
-    
-}
-
-void Scenes::HandleScene(int SceneToLaunch)
+void Scenes::handleScene(int SceneToLaunch)
 {
     Game game;
 
     if (SceneToLaunch == _Game)
         game.run();
     if (SceneToLaunch == _Menu)
-        StartMenu();
+        startMenu();
 }
