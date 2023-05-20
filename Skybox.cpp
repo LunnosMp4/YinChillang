@@ -1,11 +1,11 @@
-#include "Game.hpp"
+#include "include/YinChillang.hpp"
 
-Texture2D skyboxFront = LoadTexture("front.png");
-Texture2D skyboxBack = LoadTexture("back.png");
-Texture2D skyboxLeft = LoadTexture("left.png");
-Texture2D skyboxRight = LoadTexture("right.png");
-Texture2D skyboxUp = LoadTexture("up.png");
-Texture2D skyboxDown = LoadTexture("down.png");
+Texture2D skyboxFront = LoadTexture("sky.png");
+Texture2D skyboxBack = LoadTexture("sky.png");
+Texture2D skyboxLeft = LoadTexture("sky.png");
+Texture2D skyboxRight = LoadTexture("sky.png");
+Texture2D skyboxUp = LoadTexture("sky.png");
+Texture2D skyboxDown = LoadTexture("sky.png");
 
 Mesh skyboxMesh = GenMeshCube(1.0f, 1.0f, 1.0f);
 Model skyboxModel = LoadModelFromMesh(skyboxMesh);

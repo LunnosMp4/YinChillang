@@ -6,6 +6,7 @@
 
 Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
+    InitAudioDevice();
 
     _camera.position = (Vector3){ 80.0f, 40.0f, 80.0f };
     _camera.target = (Vector3){ 15.0f, 0.0f, 15.0f };
@@ -38,6 +39,8 @@ Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(7
             (Vector3){510.0f, 2.0f, 510.0f}
     };
 
+    _musique = LoadMusicStream("ressources/music-inGame.mp3");
+    SetMusicVolume(_musique, 0.03f);
 
     DisableCursor();
     SetTargetFPS(144);
@@ -47,12 +50,17 @@ Game::~Game() {
     UnloadTexture(_texture1);
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
+    StopMusicStream(_musique);
+    UnloadMusicStream(_musique);
+    CloseAudioDevice();
     CloseWindow();
 }
 
 void Game::run() {
+    PlayMusicStream(_musique);
     while (!WindowShouldClose()) {
         update();
+        UpdateMusicStream(_musique);
         draw();
     }
 }

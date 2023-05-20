@@ -41,5 +41,6 @@ class Game {
         Texture2D _texture2;
         BoundingBox _boxTable;
         BoundingBox _groundBoundingBox;
+        Music _musique;
     // Ajoutez d'autres propriétés et méthodes privées selon les besoins
 };
