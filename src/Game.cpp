@@ -17,6 +17,10 @@ Game::Game(): _player({ 0.0f, 1.5f, 0.0f })
     _camera.projection = CAMERA_PERSPECTIVE;
     _cameraMovementEnabled = true;
 
+    _playerModel = LoadModel("ressources/goat.glb");
+
+    _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateX(DEG2RAD * -90));
+
     _groundModel = LoadModel("ressources/YinYang.glb");
     _texture1 = LoadTexture("ressources/black-marble.png");
     _texture2 = LoadTexture("ressources/white-marble.png");
@@ -50,7 +54,9 @@ Game::~Game()
 {
     UnloadTexture(_texture1);
     UnloadTexture(_texture2);
+    UnloadModel(_playerModel);
     UnloadModel(_groundModel);
+    UnloadModel(_sceneModel);
     StopMusicStream(_musique);
     UnloadMusicStream(_musique);
     CloseAudioDevice();
@@ -103,9 +109,9 @@ void Game::draw()
     BeginMode3D(_camera);
     drawDebug();
     _player.draw();
+    DrawModel(_playerModel, _player.getPosition(), 0.1f, WHITE);
     DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {-310.0f, 291.0f, 0.0f}, 1.0f, WHITE);
-
     EndMode3D();
     DrawFPS(10, 10);
     EndDrawing();

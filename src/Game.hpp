@@ -36,6 +36,7 @@ class Game
         Camera3D _camera;
         Vector2 _mousePosition;
         Vector2 _prevMousePosition;
+        Model _playerModel;
         Model _groundModel;
         Model _sceneModel;
         Texture2D _texture1; // TODO Vector textures
