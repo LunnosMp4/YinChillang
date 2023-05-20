@@ -36,6 +36,7 @@ class Game {
         Vector2 _mousePosition;
         Vector2 _prevMousePosition;
         Model _groundModel;
+        Model _sceneModel;
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;
         BoundingBox _boxTable;
