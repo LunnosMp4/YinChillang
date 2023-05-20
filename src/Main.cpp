@@ -7,12 +7,12 @@
 
 #include "YinChillang.hpp"
 #include "Game.hpp"
-#include "Scenes.hpp"
+#include "Scenes/Scenes.hpp"
 
 int main()
 {
     Scenes scene;
 
-    scene.HandleScene(1);
+    scene.handleScene(1);
     return 0;
 }

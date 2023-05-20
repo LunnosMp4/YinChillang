@@ -12,5 +12,5 @@
 #include <string>
 #include <vector>
 
-#include "GameObject.hpp"
+#include "../src/GameObject/GameObject.hpp"
 #include "Player.hpp"
