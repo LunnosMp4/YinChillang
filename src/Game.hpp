@@ -25,14 +25,14 @@ class Game
         void draw();
         void drawDebug();
 
+        const int _screenWidth = 1280;
+        const int _screenHeight = 720;
     private:
         bool _debugMode;
         Player _player;
         Enemy _enemy;
         Level _level;
         bool _cameraMovementEnabled;
-        const int _screenWidth;
-        const int _screenHeight;
         Camera3D _camera;
         Vector2 _mousePosition;
         Vector2 _prevMousePosition;

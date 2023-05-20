@@ -12,10 +12,10 @@
 
 class Scenes {
     public:
-        Scenes() = default;
-        ~Scenes() = default;
+        Scenes();
+        ~Scenes();
 
-        void startMenu();
+        void startMenu(Game game);
         void handleScene(int SceneToLaunch);
     protected:
     private:

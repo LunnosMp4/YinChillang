@@ -4,7 +4,7 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(720)
+Game::Game(): _player({ 0.0f, 1.5f, 0.0f })
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
