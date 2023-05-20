@@ -4,81 +4,7 @@
 
 #pragma once
 
-#include "raylib.h"
-#include "raymath.h"
-#include <cmath>
-#include <fstream>
-
-class GameObject {
-    // Définissez les propriétés et les méthodes communes à tous les objets de jeu
-};
-
-class Player : public GameObject {
-    public:
-        Player(Vector3 position) {
-            _position = position;
-            _velocity = { 0.0f, 0.0f, 0.0f };
-            _jumpHeight = 8.0f;
-            _gravity = 9.81f;
-            _isGrounded = true;
-            _speed = 10.0f;  // vitesse de déplacement
-        }
-
-        void update() {
-
-            // Handle jumping
-            if (IsKeyPressed(KEY_SPACE) && _isGrounded) {
-                _velocity.y = _jumpHeight;
-                _isGrounded = false;
-            }
-
-            // Gestion du mouvement du joueur
-            if (IsKeyDown(KEY_W)) { // Avancer
-                _position.z -= _speed * GetFrameTime();
-            }
-            if (IsKeyDown(KEY_S)) { // Reculer
-                _position.z += _speed * GetFrameTime();
-            }
-            if (IsKeyDown(KEY_A)) { // Gauche
-                _position.x -= _speed * GetFrameTime();
-            }
-            if (IsKeyDown(KEY_D)) { // Droite
-                _position.x += _speed * GetFrameTime();
-            }
-
-            // Apply gravity
-            if (!_isGrounded) {
-                _velocity.y -= _gravity * GetFrameTime();
-            }
-
-            // Update player position based on velocity
-            _position.y += _velocity.y * GetFrameTime();
-
-            // Check if the player has reached the ground
-            if (_position.y <= 0.0f) {
-                _position.y = 0.0f;
-                _velocity.y = 0.0f;
-                _isGrounded = true;
-            }
-
-            _shadowPosition = { _position.x, -1.0f, _position.z };
-        }
-
-        void draw() {
-            DrawCube(_position, 2.0f, 2.0f, 2.0f, RED);
-            DrawCubeWires(_position, 2.0f, 2.0f, 2.0f, MAROON);
-            DrawCube(_shadowPosition, 2.0f, 0.1f, 2.0f, Fade(BLACK, 0.5f));
-        }
-
-    private:
-        Vector3 _position;
-        Vector3 _shadowPosition;
-        Vector3 _velocity;
-        float _jumpHeight;
-        float _gravity;
-        bool _isGrounded;
-        float _speed;
-};
+#include "YinChilang.h"
 
 class Enemy : public GameObject {
     // Définissez les propriétés et les méthodes spécifiques à l'ennemi
@@ -112,5 +38,6 @@ class Game {
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;
         BoundingBox _boxTable;
+        BoundingBox _groundBoundingBox;
     // Ajoutez d'autres propriétés et méthodes privées selon les besoins
 };

@@ -3,7 +3,6 @@
 //
 
 #include "Game.hpp"
-#include <iostream>
 
 Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _screenWidth(1280), _screenHeight(720) {
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
@@ -23,7 +22,10 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _screenWidth(1280), _screenHeight(7
     _groundModel.materials[1].maps[MATERIAL_MAP_DIFFUSE].texture = _texture2;
     _groundModel.materials[2].maps[MATERIAL_MAP_DIFFUSE].texture = _texture1;
     _groundModel.transform = MatrixRotateX(DEG2RAD * 90);
+    _groundBoundingBox = GetMeshBoundingBox(_groundModel.meshes[0]);
 
+    printf("Ground model size: %f, %f, %f\n", _groundBoundingBox.max.x - _groundBoundingBox.min.x,
+           _groundBoundingBox.max.y - _groundBoundingBox.min.y, _groundBoundingBox.max.z - _groundBoundingBox.min.z);
     _boxTable = BoundingBox{
             (Vector3){-510.0f, -100.0f, -510.0f},
             (Vector3){510.0f, 2.0f, 510.0f}
@@ -52,6 +54,13 @@ void Game::update() {
     _prevMousePosition = _mousePosition;
     _mousePosition = GetMousePosition();
     _player.update();
+    _player.move();
+
+    // Vérifier si la position du joueur est à l'intérieur de la boîte englobante
+//    if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable)) {
+//        _player.setPosition(_player.getPreviousPosition());
+//    }
+
 
     BoundingBox cameraBox = { (Vector3){ _camera.position.x - 0.5f, _camera.position.y - 1.0f, _camera.position.z - 0.5f },
                               (Vector3){ _camera.position.x + 0.5f, _camera.position.y + 1.0f, _camera.position.z + 0.5f } };
@@ -86,6 +95,7 @@ void Game::update() {
 
 void Game::draw() {
     BeginMode3D(_camera);
+    BeginDrawing();
     _player.draw();
     DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
 
