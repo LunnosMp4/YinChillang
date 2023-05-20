@@ -29,7 +29,7 @@ Game::Game() {
     _groundModel.transform = MatrixRotateX(DEG2RAD * 90);
 
     _boxTable = BoundingBox{
-            (Vector3){-510.0f, -10.0f, -510.0f},
+            (Vector3){-510.0f, -100.0f, -510.0f},
             (Vector3){510.0f, 2.0f, 510.0f}
     };
 
