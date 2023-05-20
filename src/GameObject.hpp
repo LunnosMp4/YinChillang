@@ -5,5 +5,8 @@
 #pragma once
 
 class GameObject {
+    public:
+        GameObject() = default;
+        ~GameObject() = default;
     // Définissez les propriétés et les méthodes communes à tous les objets de jeu
 };

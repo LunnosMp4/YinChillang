@@ -5,7 +5,6 @@
 #pragma once
 
 #include "YinChillang.hpp"
-#include "Player.hpp"
 
 class Enemy {
     // Définissez les propriétés et les méthodes spécifiques à l'ennemi
@@ -23,9 +22,10 @@ class Game {
         void run();
         void update();
         void draw();
-        void close();
+        void drawDebug();
 
     private:
+        bool _debugMode;
         Player _player;
         Enemy _enemy;
         Level _level;

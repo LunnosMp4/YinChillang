@@ -6,9 +6,9 @@
 
 #include "YinChillang.hpp"
 
-class Player {
+class Player: public GameObject {
     public:
-        Player(Vector3 position);
+        explicit Player(Vector3 position);
         ~Player();
         void update();
         void draw();
@@ -17,12 +17,12 @@ class Player {
         BoundingBox getBoundingBox() { return _boundingPlayer; }
 
     private:
-        Vector3 _position;
-        Vector3 _shadowPosition;
-        Vector3 _velocity;
+        Vector3 _position{};
+        Vector3 _shadowPosition{};
+        Vector3 _velocity{};
         float _jumpHeight;
         float _gravity;
         bool _isGrounded;
         float _speed;
-        BoundingBox _boundingPlayer;
+        BoundingBox _boundingPlayer{};
 };

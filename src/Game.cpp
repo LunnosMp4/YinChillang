@@ -60,26 +60,17 @@ void Game::run() {
 void Game::update() {
     _prevMousePosition = _mousePosition;
     _mousePosition = GetMousePosition();
-    _player.update();
-    _player.move();
 
     // Vérifier si la position du joueur est à l'intérieur de la boîte englobante
-//    if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable)) {
-//        _player.setPosition(_player.getPreviousPosition());
-//    }
+    if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable) && !_debugMode) {
+        _player.move();
+    }
+    if (IsKeyPressed(KEY_P)) {
+        _debugMode = !_debugMode;
+    }
+    _player.update();
 
-
-    BoundingBox cameraBox = { (Vector3){ _camera.position.x - 0.5f, _camera.position.y - 1.0f, _camera.position.z - 0.5f },
-                              (Vector3){ _camera.position.x + 0.5f, _camera.position.y + 1.0f, _camera.position.z + 0.5f } };
-
-    if (CheckCollisionBoxes(cameraBox, _boxTable)) {
-        _cameraMovementEnabled = false;
-        _camera.position.y += 0.1f;
-    } else
-        _cameraMovementEnabled = true;
-
-    if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON))
-    {
+    if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON)) {
         float deltaX = (_mousePosition.x - _prevMousePosition.x) * 0.01f;
         float deltaY = (_mousePosition.y - _prevMousePosition.y) * 0.01f;
 
@@ -98,15 +89,22 @@ void Game::draw() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
+    drawDebug();
     _player.draw();
     DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {-310.0f, 270.0f, 0.0f}, 1.0f, WHITE);
 
     EndMode3D();
-
-    if (_mousePosition.x > 0 && _mousePosition.x < _screenWidth && _mousePosition.y > 0 && _mousePosition.y < _screenHeight)
-            DrawCircle(_mousePosition.x, _mousePosition.y, 10, RED);
-
     DrawFPS(10, 10);
     EndDrawing();
+}
+
+void Game::drawDebug() {
+    if (!_debugMode)
+        return;
+    UpdateCamera(&_camera, false);
+    DrawGrid(100, 1.0f);
+    DrawCubeWires((Vector3){(_boxTable.max.x + _boxTable.min.x) / 2, (_boxTable.max.y + _boxTable.min.y) / 2, (_boxTable.max.z + _boxTable.min.z) / 2},
+                  _boxTable.max.x - _boxTable.min.x, _boxTable.max.y - _boxTable.min.y, _boxTable.max.z - _boxTable.min.z, RED);
+    DrawCircle3D({0.0f, 0.0f, 0.0f}, 50.0f, {0.0f, 90.0f, 0.0f}, 90.0f, Fade(GREEN, 0.5f));
 }
