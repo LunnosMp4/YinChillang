@@ -8,21 +8,19 @@ Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(7
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
     InitAudioDevice();
 
-    _camera.position = (Vector3){ 80.0f, 40.0f, 80.0f };
+    _camera.position = (Vector3){ 100.0f, 40.0f, 100.0f };
     _camera.target = (Vector3){ 15.0f, 0.0f, 15.0f };
     _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     _camera.fovy = 45.0f;
     _camera.projection = CAMERA_PERSPECTIVE;
     _cameraMovementEnabled = true;
 
-    _groundModel = LoadModel("ressources/yinyang.glb");
+    _groundModel = LoadModel("ressources/YinYang.glb");
     _texture1 = LoadTexture("ressources/black-marble.png");
     _texture2 = LoadTexture("ressources/white-marble.png");
 
-    _groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture2;
-    _groundModel.materials[1].maps[MATERIAL_MAP_DIFFUSE].texture = _texture2;
-    _groundModel.materials[2].maps[MATERIAL_MAP_DIFFUSE].texture = _texture1;
-    _groundModel.transform = MatrixRotateX(DEG2RAD * 90);
+    _groundModel.transform = MatrixScale(50.0f, 2.0f, 50.0f);
+
     _groundBoundingBox = GetMeshBoundingBox(_groundModel.meshes[0]);
 
     _sceneModel = LoadModel("ressources/isometric_japanese_room.glb");
@@ -40,7 +38,7 @@ Game::Game(): _player({ 0.0f, 1.5f, 0.0f }), _screenWidth(1280), _screenHeight(7
     };
 
     _musique = LoadMusicStream("ressources/music-inGame.mp3");
-    SetMusicVolume(_musique, 0.03f);
+    SetMusicVolume(_musique, 0.3f);
 
     DisableCursor();
     SetTargetFPS(144);
@@ -99,8 +97,8 @@ void Game::draw() {
     BeginMode3D(_camera);
     drawDebug();
     _player.draw();
-    DrawModel(_groundModel, {0.0f, -44.0f, 0.0f}, 1.0f, WHITE);
-    DrawModel(_sceneModel, {-310.0f, 270.0f, 0.0f}, 1.0f, WHITE);
+    DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
+    DrawModel(_sceneModel, {-310.0f, 291.0f, 0.0f}, 1.0f, WHITE);
 
     EndMode3D();
     DrawFPS(10, 10);
