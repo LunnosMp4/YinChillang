@@ -85,5 +85,5 @@ void Player::update()
 void Player::draw()
 {
     DrawModel(_modelPlayer, _position, 0.1f, WHITE);
-    DrawCube(_shadowPosition, 5.0f, 0.2f, 5.0f, Fade(BLACK, 0.5f));
+    DrawCylinder(_shadowPosition, 5.0f, 5.0f, 0.1f, 30, Fade(BLACK, 0.5f));
 }
