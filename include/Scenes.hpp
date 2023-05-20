@@ -16,7 +16,7 @@ class Scenes {
         ~Scenes();
 
         void StartMenu();
-        void HandleScene(int SceneToLaunch, Scenes scene, Game game);
+        void HandleScene(int SceneToLaunch);
     protected:
     private:
         bool _IsRunning = false;

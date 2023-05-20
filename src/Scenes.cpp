@@ -17,10 +17,12 @@ void Scenes::StartMenu()
     
 }
 
-void Scenes::HandleScene(int SceneToLaunch, Scenes scene, Game game)
+void Scenes::HandleScene(int SceneToLaunch)
 {
-    if (SceneToLaunch == scene._Game)
+    Game game;
+
+    if (SceneToLaunch == _Game)
         game.run();
-    if (SceneToLaunch == scene._Menu)
-        scene.StartMenu();
+    if (SceneToLaunch == _Menu)
+        StartMenu();
 }
