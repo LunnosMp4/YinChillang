@@ -60,14 +60,19 @@ class Player : public GameObject {
                 _velocity.y = 0.0f;
                 _isGrounded = true;
             }
+
+            _shadowPosition = { _position.x, -1.0f, _position.z };
         }
 
         void draw() {
             DrawCube(_position, 2.0f, 2.0f, 2.0f, RED);
+            DrawCubeWires(_position, 2.0f, 2.0f, 2.0f, MAROON);
+            DrawCube(_shadowPosition, 2.0f, 0.1f, 2.0f, Fade(BLACK, 0.5f));
         }
 
     private:
         Vector3 _position;
+        Vector3 _shadowPosition;
         Vector3 _velocity;
         float _jumpHeight;
         float _gravity;
