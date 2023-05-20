@@ -42,9 +42,9 @@ class Game {
         bool _cameraMovementEnabled;
         const int _screenWidth = 1280;
         const int _screenHeight = 720;
-        Camera3D _camera = { 0 }; // TODO Fix les warnings
-        Vector2 _mousePosition = { 0 };
-        Vector2 _prevMousePosition = { 0 };
+        Camera3D _camera;
+        Vector2 _mousePosition;
+        Vector2 _prevMousePosition;
         Model _groundModel;
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;

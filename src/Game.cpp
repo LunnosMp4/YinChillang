@@ -13,10 +13,6 @@ Game::Game() {
     _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     _camera.fovy = 45.0f;
     _camera.projection = CAMERA_PERSPECTIVE;
-
-    Vector2 mousePosition;
-    Vector2 prevMousePosition;
-
     _cameraMovementEnabled = true;
 
     _groundModel = LoadModel("ressources/yinyang.glb");
