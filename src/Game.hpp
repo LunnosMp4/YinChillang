@@ -21,13 +21,29 @@ class Player : public GameObject {
             _jumpHeight = 8.0f;
             _gravity = 9.81f;
             _isGrounded = true;
+            _speed = 10.0f;  // vitesse de déplacement
         }
 
         void update() {
+
             // Handle jumping
             if (IsKeyPressed(KEY_SPACE) && _isGrounded) {
                 _velocity.y = _jumpHeight;
                 _isGrounded = false;
+            }
+
+            // Gestion du mouvement du joueur
+            if (IsKeyDown(KEY_W)) { // Avancer
+                _position.z += _speed * GetFrameTime();
+            }
+            if (IsKeyDown(KEY_S)) { // Reculer
+                _position.z -= _speed * GetFrameTime();
+            }
+            if (IsKeyDown(KEY_A)) { // Gauche
+                _position.x -= _speed * GetFrameTime();
+            }
+            if (IsKeyDown(KEY_D)) { // Droite
+                _position.x += _speed * GetFrameTime();
             }
 
             // Apply gravity
@@ -56,6 +72,7 @@ class Player : public GameObject {
         float _jumpHeight;
         float _gravity;
         bool _isGrounded;
+        float _speed;
 };
 
 class Enemy : public GameObject {
