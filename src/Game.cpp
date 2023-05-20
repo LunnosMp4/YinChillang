@@ -3,6 +3,7 @@
 //
 
 #include "Game.hpp"
+#include <iostream>
 
 Game::Game() {
     InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
@@ -13,8 +14,10 @@ Game::Game() {
     _camera.fovy = 45.0f;
     _camera.projection = CAMERA_PERSPECTIVE;
 
-    Vector2 mousePosition = { 0 };
-    Vector2 prevMousePosition = { 0 };
+    Vector2 mousePosition;
+    Vector2 prevMousePosition;
+
+    _cameraMovementEnabled = true;
 
     _groundModel = LoadModel("ressources/yinyang.glb");
     _texture1 = LoadTexture("ressources/black-marble.png");
@@ -23,8 +26,12 @@ Game::Game() {
     _groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture2;
     _groundModel.materials[1].maps[MATERIAL_MAP_DIFFUSE].texture = _texture2;
     _groundModel.materials[2].maps[MATERIAL_MAP_DIFFUSE].texture = _texture1;
-
     _groundModel.transform = MatrixRotateX(DEG2RAD * 90);
+
+    _boxTable = BoundingBox{
+            (Vector3){-510.0f, -10.0f, -510.0f},
+            (Vector3){510.0f, 2.0f, 510.0f}
+    };
 
     _cubePosition = { 0.0f, 0.0f, 0.0f };
 
@@ -50,7 +57,16 @@ void Game::update() {
     _prevMousePosition = _mousePosition;
     _mousePosition = GetMousePosition();
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+    BoundingBox cameraBox = { (Vector3){ _camera.position.x - 0.5f, _camera.position.y - 1.0f, _camera.position.z - 0.5f },
+                              (Vector3){ _camera.position.x + 0.5f, _camera.position.y + 1.0f, _camera.position.z + 0.5f } };
+
+    if (CheckCollisionBoxes(cameraBox, _boxTable)) {
+        _cameraMovementEnabled = false;
+        _camera.position.y += 0.1f;
+    } else
+        _cameraMovementEnabled = true;
+
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && _cameraMovementEnabled)
         UpdateCamera(&_camera, CAMERA_THIRD_PERSON);
 
     if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON))

@@ -39,6 +39,7 @@ class Game {
         Player _player;
         Enemy _enemy;
         Level _level;
+        bool _cameraMovementEnabled;
         const int _screenWidth = 1280;
         const int _screenHeight = 720;
         Camera3D _camera = { 0 }; // TODO Fix les warnings
@@ -48,5 +49,6 @@ class Game {
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;
         Vector3 _cubePosition;
+        BoundingBox _boxTable;
     // Ajoutez d'autres propriétés et méthodes privées selon les besoins
 };
