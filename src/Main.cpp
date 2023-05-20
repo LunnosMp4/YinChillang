@@ -11,10 +11,10 @@
 
 int main()
 {
-    Game game; // TODO: init la game ici donc mettre les params nécessaires
+    // TODO @Lys: Créer l'instance game dans la classe Scenes et n'evoie pas en paramètre scenes dans scenes
+    Game game;
     Scenes scene;
 
     scene.HandleScene(1, scene, game);
-    // game.run();
     return 0;
 }
