@@ -27,6 +27,9 @@ LDFLAGS = -lraylib -lpthread -ldl
 # Change this to your program name
 NAME = YinChillang
 
+# Change this to your builder name
+BUILDER_NAME = YinChillang.AppImage
+
 # ------------------------
 
 # --- Do not touch ---
@@ -87,13 +90,28 @@ $(NAME): $(OBJ)
 	@echo "$(BLUE)Compiling $<$(RESET)"
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
+builder: $(BUILDER_NAME)
+	@echo "$(GREEN)$(NB_FILES) $(FILES_NAME) compiled successfully !$(RESET)"
+	@echo "$(GREEN)Used $(FLAGS_NAME) : $(RESET)$(WHITE)$(CFLAGS)$(RESET)"
+	@echo "$(GREEN)Program name: $(RESET)$(MAGENTA)$(BUILDER_NAME)$(RESET)"
+
+$(BUILDER_NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(BUILDER_NAME) -lconfig++ $(LDFLAGS)
+	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
+
+%.o: %.$(FILES_EXTENTION)
+	@echo "$(BLUE)Compiling $<$(RESET)"
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
 clean:
 	$(RM) $(OBJ)
 	@echo "$(RED)$(NB_FILES) $(FILES_NAME) deleted !$(RESET)"
 
 fclean:	clean
 	@$(RM) $(NAME)
+	@$(RM) $(BUILDER_NAME)
 	@echo "$(RED)Binary './$(NAME)' deleted !$(RESET)"
+	@echo "$(RED)Binary './$(BUILDER_NAME)' deleted !$(RESET)"
 
 re:	fclean all
 	@echo "$(YELLOW)Program recompiled !$(RESET)"
@@ -109,3 +127,9 @@ rerun: re
 	@echo "$(BLUE)Running program...$(RESET)"
 	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
 	@./$(NAME) $(ARGS)
+
+build: fclean builder
+	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
+
+full: fclean all builder
+	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")

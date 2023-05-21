@@ -16,10 +16,10 @@ void Player::InitPlayer(Vector3 position)
     _position = position;
     _boundingPlayer = { { position.x - 2.5f, position.y - 2.5f, position.z - 2.5f }, { position.x + 2.5f, position.y + 2.5f, position.z + 2.5f } };
     _velocity = { 0.0f, 0.0f, 0.0f };
-    _jumpHeight = 30.0f;
-    _gravity = 70.0f;
+    _jumpHeight = 40.0f;
+    _gravity = 90.0f;
     _isGrounded = true;
-    _speed = 30.0f;
+    _speed = 25.0f;
     _isDead = false;
     isAnimating = false;
     _animationDuration = 1.0f;

@@ -8,6 +8,7 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(20.0f), _spawnTimer(
     /* System */
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(GetMonitorWidth(0), GetMonitorHeight(0), "YinChillang");
+    ToggleFullscreen();
     InitAudioDevice();
     DisableCursor();
     SetTargetFPS(144);
@@ -89,13 +90,25 @@ void Game::run()
             _obstacles.clear();
             _spawnTimer = 0.0f;
             _obstacleSpeed = 20.0f;
-            _score = 0;
+            if (_player.isDead())
+                _score = 0;
         }
     }
 }
 
 void Game::update()
 {
+    if (IsKeyPressed(KEY_F11)) {
+        int display = GetCurrentMonitor();
+        if (IsWindowFullscreen()){
+            ToggleFullscreen();
+            SetWindowSize(1280, 720);
+        } else {
+            ToggleFullscreen();
+            SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+        }
+    }
+
     if (!_debugMode && !_player.isDead())
         _player.move();
 
@@ -111,7 +124,7 @@ void Game::update()
     for (auto& obstacle : _obstacles) {
         obstacle.update();
         obstacle.updateColor();
-        if (obstacle.getPosition().x < -150.0f) {
+        if (obstacle.getPosition().x < -100.0f) {
             _obstacles.erase(_obstacles.begin());
             _score += 1;
             break;
