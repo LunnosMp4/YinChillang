@@ -14,6 +14,13 @@ Player::Player(Vector3 position)
     _isGrounded = true;
     _speed = 30.0f;
     _isDead = false;
+    isAnimating = false;
+    _animationDuration = 1.0f;
+    _isAnimationTriggered = false;
+    _waitDuration = 3.0f;
+    _waitTimeElapsed = 0.0f;
+    _isWaiting = false;
+    _isRotating = false;
 }
 
 Player::~Player() = default;
@@ -70,6 +77,35 @@ void Player::move()
     }
 }
 
+void Player::animate()
+{
+    if (isAnimating) {
+        _animationTimeElapsed += GetFrameTime();
+        if (_animationTimeElapsed >= _animationDuration) {
+            _position = _targetPosition;
+            isAnimating = false;
+            _isWaiting = true; // Start waiting
+            _waitTimeElapsed = 0.0f;
+        } else {
+            float t = _animationTimeElapsed / _animationDuration;
+            _position = Vector3Lerp(_startPosition, _targetPosition, t);
+        }
+    }
+
+    if (_isWaiting) {
+        _waitTimeElapsed += GetFrameTime();
+        if (_waitTimeElapsed >= _waitDuration) {
+            _isWaiting = false;
+            _isRotating = true;
+        }
+    }
+
+    if (_isRotating) {
+        _playerModel.transform = MatrixRotateX(DEG2RAD * -110.0f);
+        _isRotating = false;
+    }
+}
+
 void Player::update()
 {
     // Handle jumping
@@ -97,10 +133,31 @@ void Player::update()
     _shadowScale = 3 - _position.y / 6;
 
     _shadowPosition = { _position.x, 0.0f, _position.z };
+    animate();
 }
 
 void Player::draw()
 {
     DrawModel(_playerModel, _position, 0.1f, WHITE);
     DrawCylinder(_shadowPosition, _shadowScale, _shadowScale, 0.1f, 30, Fade(BLACK, 0.5f));
+}
+
+void Player::setDead(bool isDead) {
+    _isDead = isDead;
+    if (!_isDead)
+        return;
+
+    if (_isAnimationTriggered)
+        return;
+
+    _startPosition = _position;
+    _targetPosition = { 0.0f, 40.0f, 90.0f };
+    _animationTimeElapsed = 0.0f;
+    isAnimating = true;
+    _isAnimationTriggered = true;
+
+    _velocity = { 0.0f, 0.0f, 0.0f };
+    _isGrounded = true;
+    _playerModel.transform = MatrixIdentity();
+    _playerModel.transform = MatrixRotateX(DEG2RAD * -90);
 }

@@ -79,7 +79,7 @@ void Game::update()
     // Vérifier si la position du joueur est à l'intérieur de la boîte englobante
     //if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable) && !_debugMode) {
     //}
-    if (!_debugMode)
+    if (!_debugMode && !_player.isDead())
         _player.move();
 
     if (IsKeyPressed(KEY_P)) {
@@ -96,12 +96,15 @@ void Game::update()
         obstacle.updateColor();
 
         if (CheckCollisionBoxes(obstacle.getBoundingBox(), _player.getBoundingBox()) && !_debugMode) {
-            std::cout << "Collision !" << std::endl;
+            _player.setDead(true);
+            break;
         }
     }
 
     if (!_debugMode) {
         float latency = 0.01f;
+        if (_player.isDead())
+            latency = 1.0f;
         _camera.target.x = Lerp(_camera.target.x, _player.getPosition().x, latency);
         _camera.target.y = Lerp(_camera.target.y, _player.getPosition().y + 3.0f, latency);
         _camera.target.z = Lerp(_camera.target.z, _player.getPosition().z, latency);

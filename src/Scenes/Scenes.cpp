@@ -45,6 +45,7 @@ void Scenes::startMenu(Game game)
         }
         if (IsKeyPressed(KEY_ESCAPE))
             break;
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("YinChillang", 150, 50, 100, DARKGRAY);

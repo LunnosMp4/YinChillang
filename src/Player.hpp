@@ -14,11 +14,16 @@ class Player: public GameObject
         void update();
         void draw();
         void move();
+        void animate();
         void setModel(Model model) { _playerModel = model; }
+        void setPosition(Vector3 position) { _position = position; }
         Vector3 getPosition() { return _position; }
         BoundingBox getBoundingBox() { return _boundingPlayer; }
-        void setDead(bool dead) { _isDead = dead; }
+        void setDead(bool dead);
         bool isDead() { return _isDead; }
+
+    public:
+        bool isAnimating;
 
     private:
         Model _playerModel;
@@ -32,4 +37,13 @@ class Player: public GameObject
         float _speed;
         bool _isDead;
         BoundingBox _boundingPlayer{};
+        Vector3 _startPosition;
+        Vector3 _targetPosition;
+        float _animationDuration;
+        float _animationTimeElapsed;
+        bool _isAnimationTriggered;
+        float _waitDuration;
+        float _waitTimeElapsed;
+        bool _isWaiting;
+        bool _isRotating;
 };
