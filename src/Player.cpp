@@ -16,7 +16,7 @@ Player::Player(Vector3 position)
 }
 
 Player::~Player() {
-    UnloadModel(_modelPlayer);
+    UnloadModel(_playerModel);
 }
 
 void Player::move()
@@ -26,48 +26,48 @@ void Player::move()
         _boundingPlayer.min.z -= _speed * GetFrameTime();
         _boundingPlayer.max.z -= _speed * GetFrameTime();
         // rotate player
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 180);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateX(DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 180);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateX(DEG2RAD * 90));
     }
     if (IsKeyDown(KEY_S)) { // Reculer
         _position.z += _speed * GetFrameTime();
         _boundingPlayer.min.z += _speed * GetFrameTime();
         _boundingPlayer.max.z += _speed * GetFrameTime();
         // rotate player
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 0);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateX(DEG2RAD * -90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 0);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateX(DEG2RAD * -90));
     }
     if (IsKeyDown(KEY_A)) { // Gauche
         _position.x -= _speed * GetFrameTime();
         _boundingPlayer.min.x -= _speed * GetFrameTime();
         _boundingPlayer.max.x -= _speed * GetFrameTime();
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 270);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateZ(DEG2RAD * -90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 270);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateZ(DEG2RAD * -90));
 
     }
     if (IsKeyDown(KEY_D)) { // Droite
         _position.x += _speed * GetFrameTime();
         _boundingPlayer.min.x += _speed * GetFrameTime();
         _boundingPlayer.max.x += _speed * GetFrameTime();
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 90);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotateZ(DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 90);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateZ(DEG2RAD * 90));
     }
 
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_A)) { // Avancer + Gauche
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 225);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ 1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 225);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotate({ 1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
     }
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) { // Avancer + Droite
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 135);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ 1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 135);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotate({ 1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
     }
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_A)) { // Reculer + Gauche
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 315);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ -1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 315);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotate({ -1.0f, 0.0f, -1.0f }, DEG2RAD * 90));
     }
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_D)) { // Reculer + Droite
-        _modelPlayer.transform = MatrixRotateY(DEG2RAD * 45);
-        _modelPlayer.transform = MatrixMultiply(_modelPlayer.transform, MatrixRotate({ -1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
+        _playerModel.transform = MatrixRotateY(DEG2RAD * 45);
+        _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotate({ -1.0f, 0.0f, 1.0f }, DEG2RAD * 90));
     }
 }
 
@@ -101,6 +101,6 @@ void Player::update()
 
 void Player::draw()
 {
-    DrawModel(_modelPlayer, _position, 0.1f, WHITE);
+    DrawModel(_playerModel, _position, 0.1f, WHITE);
     DrawCylinder(_shadowPosition, 5.0f, 5.0f, 0.1f, 30, Fade(BLACK, 0.5f));
 }
