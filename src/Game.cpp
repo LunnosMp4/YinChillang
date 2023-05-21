@@ -39,8 +39,8 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficu
             (Vector3){510.0f, 2.0f, 510.0f}
     };
 
-    _musique = LoadMusicStream("ressources/music-inGame.mp3");
-    SetMusicVolume(_musique, 0.3f);
+    _music = LoadMusicStream("ressources/music-inGame.mp3");
+    SetMusicVolume(_music, 0.3f);
 
     DisableCursor();
     SetTargetFPS(144);
@@ -52,18 +52,18 @@ Game::~Game()
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
     UnloadModel(_sceneModel);
-    StopMusicStream(_musique);
-    UnloadMusicStream(_musique);
+    StopMusicStream(_music);
+    UnloadMusicStream(_music);
     CloseAudioDevice();
     CloseWindow();
 }
 
 void Game::run()
 {
-    PlayMusicStream(_musique);
+    PlayMusicStream(_music);
     while (!WindowShouldClose()) {
         update();
-        UpdateMusicStream(_musique);
+        UpdateMusicStream(_music);
         draw();
         _spawnTimer += GetFrameTime();
         if (IsKeyPressed(KEY_ESCAPE))
@@ -116,8 +116,8 @@ void Game::update()
 
     float spawnInterval = GetRandomValue(2000, 5000) / 1000.0f;
     if (_spawnTimer >= spawnInterval) {
-        Vector3 spawnPosition = { 51.0f, -3, GetRandomValue(-51, 51) };
-        Vector3 spawnSize = { GetRandomValue(1, 5), 10.0f, 100.0f };
+        Vector3 spawnPosition = { 51.0f, 5, GetRandomValue(-51, 51) };
+        Vector3 spawnSize = { GetRandomValue(1, 5), 7.0f, 100.0f };
         Obstacle newObstacle(spawnPosition, spawnSize, _obstacleSpeed);
         _obstacles.push_back(newObstacle);
         _spawnTimer = 0.0f;
@@ -134,7 +134,7 @@ void Game::draw()
     for (auto& obstacle : _obstacles) {
         obstacle.draw();
     }
-    DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
+    DrawModel(_groundModel, {0.0f, -2.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {0.0f, -10.0f, 5.0f}, 10.0f, WHITE);
     EndMode3D();
     DrawFPS(10, 10);

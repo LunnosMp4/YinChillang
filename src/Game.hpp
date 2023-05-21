@@ -44,7 +44,7 @@ class Game
         Texture2D _texture2;
         BoundingBox _boxTable;
         BoundingBox _groundBoundingBox;
-        Music _musique;
+        Music _music;
         std::vector<Obstacle> _obstacles;
         float _obstacleSpeed;
         float _gameDifficulty;

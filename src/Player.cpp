@@ -9,10 +9,10 @@ Player::Player(Vector3 position)
     _position = position;
     _boundingPlayer = { { position.x - 2.5f, position.y - 2.5f, position.z - 2.5f }, { position.x + 2.5f, position.y + 2.5f, position.z + 2.5f } };
     _velocity = { 0.0f, 0.0f, 0.0f };
-    _jumpHeight = 26.0f;
-    _gravity = 60.0f;
+    _jumpHeight = 30.0f;
+    _gravity = 70.0f;
     _isGrounded = true;
-    _speed = 20.0f;
+    _speed = 30.0f;
     _isDead = false;
 }
 
@@ -94,12 +94,13 @@ void Player::update()
         _velocity.y = 0.0f;
         _isGrounded = true;
     }
+    _shadowScale = 3 - _position.y / 6;
 
-    _shadowPosition = { _position.x, -1.0f, _position.z };
+    _shadowPosition = { _position.x, 0.0f, _position.z };
 }
 
 void Player::draw()
 {
     DrawModel(_playerModel, _position, 0.1f, WHITE);
-    DrawCylinder(_shadowPosition, 5.0f, 5.0f, 0.1f, 30, Fade(BLACK, 0.5f));
+    DrawCylinder(_shadowPosition, _shadowScale, _shadowScale, 0.1f, 30, Fade(BLACK, 0.5f));
 }

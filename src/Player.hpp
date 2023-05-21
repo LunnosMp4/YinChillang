@@ -24,6 +24,7 @@ class Player: public GameObject
         Model _playerModel;
         Vector3 _position{};
         Vector3 _shadowPosition{};
+        float _shadowScale;
         Vector3 _velocity{};
         float _jumpHeight;
         float _gravity;
