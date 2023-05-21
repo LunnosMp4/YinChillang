@@ -90,6 +90,7 @@ void Game::update()
 
     for (auto& obstacle : _obstacles) {
         obstacle.update();
+        obstacle.updateColor();
 
         if (CheckCollisionBoxes(obstacle.getBoundingBox(), _player.getBoundingBox()) && !_debugMode) {
             std::cout << "Collision !" << std::endl;
