@@ -26,15 +26,12 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f })
     _texture2 = LoadTexture("ressources/white-marble.png");
 
     _groundModel.transform = MatrixScale(50.0f, 2.0f, 50.0f);
-
     _groundBoundingBox = GetMeshBoundingBox(_groundModel.meshes[0]);
 
-    _sceneModel = LoadModel("ressources/isometric_japanese_room.glb");
-    // rescale
-    _sceneModel.transform = MatrixScale(10.0f, 300.0f, 10.0f);
+    _sceneModel = LoadModel("ressources/room.glb");
     _sceneModel.transform = MatrixMultiply(_sceneModel.transform, MatrixRotateX(DEG2RAD * -90));
-    // rotate
 
+    _test = LoadModel("ressources/goat.glb");
 
     printf("Ground model size: %f, %f, %f\n", _groundBoundingBox.max.x - _groundBoundingBox.min.x,
            _groundBoundingBox.max.y - _groundBoundingBox.min.y, _groundBoundingBox.max.z - _groundBoundingBox.min.z);
@@ -56,6 +53,7 @@ Game::~Game()
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
     UnloadModel(_sceneModel);
+    UnloadModel(_test);
     StopMusicStream(_musique);
     UnloadMusicStream(_musique);
     CloseAudioDevice();
@@ -82,7 +80,11 @@ void Game::update()
         _player.move();
     }
     if (IsKeyPressed(KEY_P)) {
-        _debugMode = !_debugMode;
+        if (_debugMode) {
+            _debugMode = false;
+        } else {
+            _debugMode = true;
+        }
     }
     _player.update();
 
@@ -109,7 +111,8 @@ void Game::draw()
     drawDebug();
     _player.draw();
     DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
-    DrawModel(_sceneModel, {-310.0f, 291.0f, 0.0f}, 1.0f, WHITE);
+    DrawModel(_sceneModel, {0.0f, -10.0f, 5.0f}, 10.0f, WHITE);
+    //DrawModel(_test, {0.0f, 0.0f, 0.0f}, 10.0f, WHITE);
     EndMode3D();
     DrawFPS(10, 10);
     EndDrawing();

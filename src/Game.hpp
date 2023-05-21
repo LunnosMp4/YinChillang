@@ -28,7 +28,7 @@ class Game
         const int _screenWidth = 1280;
         const int _screenHeight = 720;
     private:
-        bool _debugMode;
+        bool _debugMode = false;
         Player _player;
         Enemy _enemy;
         Level _level;
@@ -39,6 +39,7 @@ class Game
         Model _playerModel;
         Model _groundModel;
         Model _sceneModel;
+        Model _test;
         Texture2D _texture1; // TODO Vector textures
         Texture2D _texture2;
         BoundingBox _boxTable;
