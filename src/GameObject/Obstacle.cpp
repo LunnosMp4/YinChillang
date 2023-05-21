@@ -6,7 +6,7 @@
 
 Obstacle::Obstacle(Vector3 pos, float spd) : _position(pos), _speed(spd) {
     _radius = GetRandomValue(10, 30);
-    _nbCubes = _radius * 3;
+    _nbCubes = _radius * 10;
     _random_effect_color = GetRandomValue(0, 4.0);
 
     /* Remplie la liste de bounding boxes à 0 */

@@ -46,7 +46,7 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(20.0f), _spawnTimer(
     _music = LoadMusicStream("ressources/music-inGame.mp3");
     SetMusicVolume(_music, 0.3f);
     _jump_goat = LoadSound("ressources/chevre.mp3");
-    SetSoundVolume(_jump_goat, 0.5f);
+    SetSoundVolume(_jump_goat, 0.4f);
     _death = LoadSound("ressources/greg.mp3");
     SetSoundVolume(_death, 1.7f);
     _player.greg = _death;
@@ -83,6 +83,7 @@ void Game::run()
             break;
         if (_player.isDead() && !_player.isAnimating && IsKeyPressed(KEY_ENTER)) {
             _player.InitPlayer({ 0.0f, 0.0f, 0.0f });
+            SetMusicVolume(_music, 0.3f);
             _obstacles.clear();
             _spawnTimer = 0.0f;
             _obstacleSpeed = 20.0f;
@@ -112,6 +113,7 @@ void Game::update()
             break;
         }
         if (obstacle.isCollideWithPlayer(_player.getBoundingBox())) {
+            SetMusicVolume(_music, 0.1f);
             _player.setDead(true);
             break;
         }
@@ -135,7 +137,7 @@ void Game::update()
     if (_spawnTimer >= spawnInterval) {
         Vector3 spawnPosition = { 100.0f, 5, static_cast<float>(GetRandomValue(-51, 51)) };
         Obstacle newObstacle(spawnPosition, _obstacleSpeed);
-        _obstacleSpeed += 0.5f;
+        _obstacleSpeed += 2.0f;
         newObstacle.type = static_cast<ObstacleType>(GetRandomValue(0, 1));
         _obstacles.push_back(newObstacle);
         _spawnTimer = 0.0f;
