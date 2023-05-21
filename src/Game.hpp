@@ -32,7 +32,6 @@ class Game
         Player _player;
         Enemy _enemy;
         Level _level;
-        float _spawnTimer;
         bool _cameraMovementEnabled;
         Camera3D _camera;
         Vector2 _mousePosition;
@@ -48,4 +47,5 @@ class Game
         std::vector<Obstacle> _obstacles;
         float _obstacleSpeed;
         float _gameDifficulty;
+        float _spawnTimer;
 };

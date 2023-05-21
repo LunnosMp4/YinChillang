@@ -116,8 +116,8 @@ void Game::update()
 
     float spawnInterval = GetRandomValue(2000, 5000) / 1000.0f;
     if (_spawnTimer >= spawnInterval) {
-        Vector3 spawnPosition = { 51.0f, 5, GetRandomValue(-51, 51) };
-        Vector3 spawnSize = { GetRandomValue(1, 5), 7.0f, 100.0f };
+        Vector3 spawnPosition = { 51.0f, 5, static_cast<float>(GetRandomValue(-51, 51)) };
+        Vector3 spawnSize = { static_cast<float>(GetRandomValue(1, 5)), 7.0f, 100.0f };
         Obstacle newObstacle(spawnPosition, spawnSize, _obstacleSpeed);
         _obstacles.push_back(newObstacle);
         _spawnTimer = 0.0f;
