@@ -44,6 +44,8 @@ class Game
         BoundingBox _boxTable;
         BoundingBox _groundBoundingBox;
         Music _music;
+        Sound _jump_chevre;
+        Sound _jump_chevre_hard;
         std::vector<Obstacle> _obstacles;
         float _obstacleSpeed;
         float _gameDifficulty;

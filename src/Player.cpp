@@ -109,7 +109,7 @@ void Player::animate()
 void Player::update()
 {
     // Handle jumping
-    if (IsKeyPressed(KEY_SPACE) && _isGrounded) {
+    if (IsKeyPressed(KEY_SPACE) && _isGrounded && !_isDead) {
         _velocity.y = _jumpHeight;
         _isGrounded = false;
     }

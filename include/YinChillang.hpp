@@ -11,7 +11,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
 
 #include "../src/GameObject/GameObject.hpp"
 #include "Player.hpp"
 #include "GameObject/Obstacle.hpp"
+
+float randomFloatBetween(float start, float end);
