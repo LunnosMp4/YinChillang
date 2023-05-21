@@ -17,6 +17,8 @@ class Player: public GameObject
         void setModel(Model model) { _playerModel = model; }
         Vector3 getPosition() { return _position; }
         BoundingBox getBoundingBox() { return _boundingPlayer; }
+        void setDead(bool dead) { _isDead = dead; }
+        bool isDead() { return _isDead; }
 
     private:
         Model _playerModel;
@@ -27,5 +29,6 @@ class Player: public GameObject
         float _gravity;
         bool _isGrounded;
         float _speed;
+        bool _isDead;
         BoundingBox _boundingPlayer{};
 };

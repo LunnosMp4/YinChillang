@@ -19,6 +19,7 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficu
 
     _playerModel = LoadModel("ressources/goat.glb");
     _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateX(DEG2RAD * -90));
+    _playerModel.transform = MatrixMultiply(_playerModel.transform, MatrixRotateY(DEG2RAD * -65));
     _player.setModel(_playerModel);
 
     _groundModel = LoadModel("ressources/YinYang.glb");

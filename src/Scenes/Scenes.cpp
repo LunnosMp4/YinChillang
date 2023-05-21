@@ -8,7 +8,10 @@
 #include "Scenes.hpp"
 #include "Game.hpp"
 
-Scenes::Scenes() {}
+Scenes::Scenes()
+{
+
+}
 
 Scenes::~Scenes()
 {
@@ -29,23 +32,29 @@ void Scenes::startMenu(Game game)
                 selectedLevel++;
                 if (selectedLevel > 3)
                     selectedLevel = 1;
-            } else if (IsKeyPressed(KEY_ENTER))
-                levelSelected = true;
+            } else if (IsKeyPressed(KEY_ENTER)) {
+                if (selectedLevel == 1) {
+                    levelSelected = true;
+                    game.run();
+                    _IsRunning = true;
+                } else if (selectedLevel == 2)
+                    CloseWindow();
+                else if (selectedLevel == 3)
+                    CloseWindow();
+            }
         }
         if (IsKeyPressed(KEY_ESCAPE))
             break;
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("YinChillang", 150, 50, 50, DARKGRAY);
+        DrawText("YinChillang", 150, 50, 100, DARKGRAY);
 
-        DrawText(selectedLevel == 1 ? "> Level 1" : "Level 1", 150, 150, 20, selectedLevel == 1 ? RED : DARKGRAY);
-        DrawText(selectedLevel == 2 ? "> Level 2" : "Level 2", 150, 180, 20, selectedLevel == 2 ? RED : DARKGRAY);
-        DrawText(selectedLevel == 3 ? "> Level 3" : "Level 3", 150, 210, 20, selectedLevel == 3 ? RED : DARKGRAY);
-
-        if (levelSelected) {
-            game.run();
-            _IsRunning = true;
-        }
+        DrawText(selectedLevel == 1 ? "> Play" : "Play", 150, 200, 40, selectedLevel == 1 ? RED : DARKGRAY);
+        DrawText(selectedLevel == 2 ? "> Quit" : "Quit", 150, 250, 40, selectedLevel == 2 ? RED : DARKGRAY);
+        DrawText(selectedLevel == 3 ? "> Quit mais c'est le 2" : "Quit mais c'est le 2", 150, 300, 40, selectedLevel == 3 ? RED : DARKGRAY);
+        BeginMode3D(game.getCamera());
+        DrawModel(game.getPlayerModel(), (Vector3){30.0f, -50.0f, 30.0f}, 1.0f, WHITE);
+        EndMode3D();
         EndDrawing();
     }
     CloseWindow();
@@ -55,8 +64,8 @@ void Scenes::handleScene(int SceneToLaunch)
 {
     Game game;
 
-    if (SceneToLaunch == _Game)
-        game.run();
     if (SceneToLaunch == _Menu)
         startMenu(game);
+    if (SceneToLaunch == _Game)
+        game.run();
 }

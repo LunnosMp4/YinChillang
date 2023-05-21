@@ -13,6 +13,7 @@ Player::Player(Vector3 position)
     _gravity = 60.0f;
     _isGrounded = true;
     _speed = 20.0f;
+    _isDead = false;
 }
 
 Player::~Player() = default;

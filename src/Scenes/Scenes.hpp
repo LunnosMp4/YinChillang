@@ -19,7 +19,7 @@ class Scenes {
 
         void startMenu(Game game);
         void handleScene(int SceneToLaunch);
-    protected:
+
     private:
         int _Menu = 0;
         int _Game = 1;

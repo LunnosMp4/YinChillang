@@ -24,6 +24,8 @@ class Game
         void update();
         void draw();
         void drawDebug();
+        Camera3D getCamera() const { return _camera; };
+        Model getPlayerModel() const { return _playerModel; };
 
     private:
         bool _debugMode = false;
