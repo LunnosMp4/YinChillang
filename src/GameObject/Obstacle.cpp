@@ -3,7 +3,3 @@
 //
 
 #include "Obstacle.hpp"
-
-class GameObject {
-
-};

@@ -4,10 +4,10 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 0.0f, 0.0f })
+Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficulty(1.0f), _spawnTimer(0.0f)
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(_screenWidth, _screenHeight, "raylib [core] example - 3d camera mode");
+    InitWindow(GetMonitorWidth(0), GetMonitorHeight(0), "YinChillang");
     InitAudioDevice();
 
     _camera.position = (Vector3){ 100.0f, 40.0f, 100.0f };
@@ -64,6 +64,7 @@ void Game::run()
         update();
         UpdateMusicStream(_musique);
         draw();
+        _spawnTimer += GetFrameTime();
     }
 }
 
@@ -73,9 +74,11 @@ void Game::update()
     _mousePosition = GetMousePosition();
 
     // Vérifier si la position du joueur est à l'intérieur de la boîte englobante
-    if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable) && !_debugMode) {
+    //if (CheckCollisionBoxes(_player.getBoundingBox(), _boxTable) && !_debugMode) {
+    //}
+    if (!_debugMode)
         _player.move();
-    }
+
     if (IsKeyPressed(KEY_P)) {
         if (_debugMode) {
             _debugMode = false;
@@ -84,6 +87,14 @@ void Game::update()
         }
     }
     _player.update();
+
+    for (auto& obstacle : _obstacles) {
+        obstacle.update();
+
+        if (CheckCollisionBoxes(obstacle.getBoundingBox(), _player.getBoundingBox()) && !_debugMode) {
+            std::cout << "Collision !" << std::endl;
+        }
+    }
 
     if (!_debugMode) {
         float latency = 0.01f;
@@ -98,6 +109,15 @@ void Game::update()
     if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
         _camera.fovy = 45.0f;
     }
+
+    float spawnInterval = GetRandomValue(2000, 5000) / 1000.0f;
+    if (_spawnTimer >= spawnInterval) {
+        Vector3 spawnPosition = { 51.0f, -3, GetRandomValue(-51, 51) };
+        Vector3 spawnSize = { GetRandomValue(1, 5), 10.0f, 100.0f };
+        Obstacle newObstacle(spawnPosition, spawnSize, _obstacleSpeed);
+        _obstacles.push_back(newObstacle);
+        _spawnTimer = 0.0f;
+    }
 }
 
 void Game::draw()
@@ -107,6 +127,9 @@ void Game::draw()
     BeginMode3D(_camera);
     drawDebug();
     _player.draw();
+    for (auto& obstacle : _obstacles) {
+        obstacle.draw();
+    }
     DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {0.0f, -10.0f, 5.0f}, 10.0f, WHITE);
     EndMode3D();
@@ -121,6 +144,6 @@ void Game::drawDebug()
     UpdateCamera(&_camera, false);
     DrawGrid(100, 1.0f);
     DrawCubeWires((Vector3){(_boxTable.max.x + _boxTable.min.x) / 2, (_boxTable.max.y + _boxTable.min.y) / 2, (_boxTable.max.z + _boxTable.min.z) / 2},
-                  _boxTable.max.x - _boxTable.min.x, _boxTable.max.y - _boxTable.min.y, _boxTable.max.z - _boxTable.min.z, RED);
+                    _boxTable.max.x - _boxTable.min.x, _boxTable.max.y - _boxTable.min.y, _boxTable.max.z - _boxTable.min.z, RED);
     DrawCircle3D({0.0f, 0.0f, 0.0f}, 50.0f, {0.0f, 90.0f, 0.0f}, 90.0f, Fade(GREEN, 0.5f));
 }

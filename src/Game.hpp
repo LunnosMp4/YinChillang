@@ -25,13 +25,12 @@ class Game
         void draw();
         void drawDebug();
 
-        const int _screenWidth = 1280;
-        const int _screenHeight = 720;
     private:
         bool _debugMode = false;
         Player _player;
         Enemy _enemy;
         Level _level;
+        float _spawnTimer;
         bool _cameraMovementEnabled;
         Camera3D _camera;
         Vector2 _mousePosition;
@@ -44,5 +43,7 @@ class Game
         BoundingBox _boxTable;
         BoundingBox _groundBoundingBox;
         Music _musique;
-    // Ajoutez d'autres propriétés et méthodes privées selon les besoins
+        std::vector<Obstacle> _obstacles;
+        float _obstacleSpeed;
+        float _gameDifficulty;
 };

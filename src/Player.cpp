@@ -15,9 +15,7 @@ Player::Player(Vector3 position)
     _speed = 20.0f;
 }
 
-Player::~Player() {
-    UnloadModel(_playerModel);
-}
+Player::~Player() = default;
 
 void Player::move()
 {

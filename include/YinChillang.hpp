@@ -14,3 +14,4 @@
 
 #include "../src/GameObject/GameObject.hpp"
 #include "Player.hpp"
+#include "GameObject/Obstacle.hpp"
