@@ -10,7 +10,7 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficu
     InitWindow(GetMonitorWidth(0), GetMonitorHeight(0), "YinChillang");
     InitAudioDevice();
 
-    _camera.position = (Vector3){ 100.0f, 40.0f, 100.0f };
+    _camera.position = (Vector3){ 0.0f, 50.0f, 100.0f };
     _camera.target = (Vector3){ 15.0f, 0.0f, 15.0f };
     _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     _camera.fovy = 45.0f;
