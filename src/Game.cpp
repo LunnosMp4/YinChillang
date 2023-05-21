@@ -4,7 +4,7 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacle(), _obstacleSpeed(10.0f), _gameDifficulty(1.0f), _spawnTimer(0.0f)
+Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacle(), _gameDifficulty(1.0f)
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(GetMonitorWidth(0), GetMonitorHeight(0), "YinChillang");
@@ -79,6 +79,11 @@ void Game::run()
         draw();
         if (IsKeyPressed(KEY_ESCAPE))
             break;
+        if (_player.isDead() && !_player.isAnimating && IsKeyPressed(KEY_ENTER)) {
+            _player.InitPlayer({ 0.0f, 0.0f, 0.0f });
+            _obstacle.walls.clear();
+            _gameDifficulty = 1.0f;
+        }
     }
 }
 
@@ -104,6 +109,11 @@ void Game::update()
     _obstacle.update();
 
     for (auto &obstacle : _obstacle.walls) {
+        // GET THE RIGHT POSITION FOR THE CLEAR HERE
+        if (obstacle.getPosition().x < -50.0f) {
+            _obstacle.walls.erase(_obstacle.walls.begin());
+            break;
+        }
         if (CheckCollisionBoxes(obstacle.getBoundingBox(), _player.getBoundingBox()) && !_debugMode) {
             _player.setDead(true);
         }

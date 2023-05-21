@@ -48,7 +48,5 @@ class Game
         Music _music;
         Sound _jump_chevre;
         Sound _death_sond;
-        float _obstacleSpeed;
         float _gameDifficulty;
-        float _spawnTimer;
 };

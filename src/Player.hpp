@@ -11,6 +11,8 @@ class Player: public GameObject
     public:
         explicit Player(Vector3 position);
         ~Player();
+
+        void InitPlayer(Vector3 position);
         void update();
         void draw();
         void move();
