@@ -8,34 +8,18 @@
 
 class Obstacle {
     public:
-        Obstacle(Vector3 pos, Vector3 sz, float spd)
-                : position(pos), size(sz), speed(spd) {}
+        Obstacle(Vector3 pos, Vector3 sz, float spd);
 
-        void update() {
-            position.x -= speed * GetFrameTime();
-        }
-
-        void draw() {
-            DrawCube(position, size.x, size.y, size.z, RED);
-        }
-
-        BoundingBox getBoundingBox() {
-            return {
-                    (Vector3){position.x - size.x / 2, position.y - size.y / 4, position.z - size.z / 2},
-                    (Vector3){position.x + size.x / 2, position.y + size.y / 4, position.z + size.z / 2}
-            };
-        }
-
-        void destroy() {
-            delete this;
-        }
-
-        Vector3 getPosition() {
-            return position;
-        }
+        void update();
+        void draw();
+        BoundingBox getBoundingBox();
+        void destroy();
+        Vector3 getPosition();
+        void updateColor();
 
     private:
+        Color _color;
         Vector3 position;
-        Vector3 size;
-        float speed;
+        Vector3 _size;
+        float _speed;
 };
