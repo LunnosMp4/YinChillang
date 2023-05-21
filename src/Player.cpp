@@ -125,7 +125,7 @@ void Player::update()
         _velocity.y -= _gravity * GetFrameTime();
     }
 
-    // Update player position and bounding box based on velocity
+    // Update player _position and bounding box based on velocity
     _position.y += _velocity.y * GetFrameTime();
     _boundingPlayer.min.y += _velocity.y * GetFrameTime();
     _boundingPlayer.max.y += _velocity.y * GetFrameTime();

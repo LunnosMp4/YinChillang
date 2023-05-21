@@ -6,28 +6,31 @@
 
 #include "YinChillang.hpp"
 
+enum ObstacleType {
+    CIRCLE = 0,
+    WALL = 1
+};
+
 class Obstacle {
     public:
-        Obstacle();
+        Obstacle(Vector3 pos, float spd);
+
+        void drawCircle();
+        void drawWall();
+
+        bool isCollideWithPlayer(BoundingBox player);
+        Vector3 getPosition();
 
         void update();
-        void draw();
+        void updateColor();
+        ObstacleType type;
 
-        std::vector<Wall> walls;
     private:
-        struct WallSettings {
-            Vector3 _pos;
-            Vector3 _size;
-            float _speed;
-
-            float _spawnIntervalMin;
-            float _spawnIntervalMax;
-            float _spawnInterval;
-
-            float _spawnTimer;
-        };
-
-        WallSettings wall_s;
-
-        int _obstacleType;
+        Color _color;
+        Vector3 _position;
+        float _speed;
+        float _radius;
+        float _random_effect_color;
+        int _nbCubes;
+        std::vector<BoundingBox> _boundingBoxes;
 };
