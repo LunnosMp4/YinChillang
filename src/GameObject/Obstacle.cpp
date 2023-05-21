@@ -20,8 +20,8 @@ void Obstacle::draw()
 BoundingBox Obstacle::getBoundingBox()
 {
     return {
-        (Vector3){position.x - _size.x / 2, position.y - _size.y / 4, position.z - _size.z / 2},
-        (Vector3){position.x + _size.x / 2, position.y + _size.y / 4, position.z + _size.z / 2}
+        (Vector3){position.x - _size.x / 2, position.y - _size.y / 2, position.z - _size.z / 2},
+        (Vector3){position.x + _size.x / 2, position.y + _size.y / 2, position.z + _size.z / 2}
     };
 }
 
