@@ -116,7 +116,7 @@ void Game::update()
             _score += 1;
             break;
         }
-        if (obstacle.isCollideWithPlayer(_player.getBoundingBox())) {
+        if (obstacle.isCollideWithPlayer(_player.getBoundingBox()) && !_debugMode) {
             SetMusicVolume(_music, 0.1f);
             _player.setDead(true);
             break;
