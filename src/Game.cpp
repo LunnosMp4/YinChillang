@@ -65,6 +65,8 @@ void Game::run()
         UpdateMusicStream(_musique);
         draw();
         _spawnTimer += GetFrameTime();
+        if (IsKeyPressed(KEY_ESCAPE))
+            break;
     }
 }
 

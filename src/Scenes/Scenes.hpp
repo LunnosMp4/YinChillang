@@ -15,11 +15,12 @@ class Scenes {
         Scenes();
         ~Scenes();
 
+        bool _IsRunning = false;
+
         void startMenu(Game game);
         void handleScene(int SceneToLaunch);
     protected:
     private:
-        bool _IsRunning = false;
         int _Menu = 0;
         int _Game = 1;
         int _End = 2;

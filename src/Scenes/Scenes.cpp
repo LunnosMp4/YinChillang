@@ -32,20 +32,23 @@ void Scenes::startMenu(Game game)
             } else if (IsKeyPressed(KEY_ENTER))
                 levelSelected = true;
         }
+        if (IsKeyPressed(KEY_ESCAPE))
+            break;
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("YinChillang", 20, 20, 50, DARKGRAY);
+        DrawText("YinChillang", 150, 50, 50, DARKGRAY);
 
-        DrawText(selectedLevel == 1 ? "> Level 1" : "Level 1", 20, 100, 20, selectedLevel == 1 ? RED : DARKGRAY);
-        DrawText(selectedLevel == 2 ? "> Level 2" : "Level 2", 20, 130, 20, selectedLevel == 2 ? RED : DARKGRAY);
-        DrawText(selectedLevel == 3 ? "> Level 3" : "Level 3", 20, 160, 20, selectedLevel == 3 ? RED : DARKGRAY);
+        DrawText(selectedLevel == 1 ? "> Level 1" : "Level 1", 150, 150, 20, selectedLevel == 1 ? RED : DARKGRAY);
+        DrawText(selectedLevel == 2 ? "> Level 2" : "Level 2", 150, 180, 20, selectedLevel == 2 ? RED : DARKGRAY);
+        DrawText(selectedLevel == 3 ? "> Level 3" : "Level 3", 150, 210, 20, selectedLevel == 3 ? RED : DARKGRAY);
 
         if (levelSelected) {
-            DrawText(TextFormat("Level %d selected!", selectedLevel), 20, 200, 20, DARKGRAY);
             game.run();
+            _IsRunning = true;
         }
         EndDrawing();
     }
+    CloseWindow();
 }
 
 void Scenes::handleScene(int SceneToLaunch)

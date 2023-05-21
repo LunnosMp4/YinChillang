@@ -13,6 +13,6 @@ int main()
 {
     Scenes scene;
 
-    scene.handleScene(1);
+    scene.handleScene(0);
     return 0;
 }
