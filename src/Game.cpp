@@ -42,6 +42,8 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(20.0f), _spawnTimer(
             (Vector3){510.0f, 2.0f, 510.0f}
     };
 
+    _score = 0;
+
     /* Music */
     _music = LoadMusicStream("ressources/music-inGame.mp3");
     SetMusicVolume(_music, 0.3f);
@@ -87,6 +89,7 @@ void Game::run()
             _obstacles.clear();
             _spawnTimer = 0.0f;
             _obstacleSpeed = 20.0f;
+            _score = 0;
         }
     }
 }
@@ -110,6 +113,7 @@ void Game::update()
         obstacle.updateColor();
         if (obstacle.getPosition().x < -150.0f) {
             _obstacles.erase(_obstacles.begin());
+            _score += 1;
             break;
         }
         if (obstacle.isCollideWithPlayer(_player.getBoundingBox())) {
@@ -164,6 +168,8 @@ void Game::draw()
 
     EndMode3D();
     DrawFPS(10, 10);
+    DrawText(TextFormat("Score: %d", _score), GetScreenWidth() / 2 - MeasureText(TextFormat("Score: %d", _score), 50) / 2, 10, 50, (Color){(unsigned char)(sin(GetTime() * 2.0f) * 127.0f + 127.0f), (unsigned char)(sin(GetTime() * 2.0f + 2.0f) * 127.0f + 127.0f), (unsigned char)(sin(GetTime() * 2.0f + 4.0f) * 127.0f + 127.0f), 255});
+    
     EndDrawing();
 }
 

@@ -28,6 +28,7 @@ class Game
         std::vector<Obstacle> _obstacles;
         float _obstacleSpeed;
         float _spawnTimer;
+        int _score;
 
         Model _playerModel;
         Model _groundModel;
