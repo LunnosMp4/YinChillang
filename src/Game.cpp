@@ -31,8 +31,6 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f })
     _sceneModel = LoadModel("ressources/room.glb");
     _sceneModel.transform = MatrixMultiply(_sceneModel.transform, MatrixRotateX(DEG2RAD * -90));
 
-    _test = LoadModel("ressources/goat.glb");
-
     printf("Ground model size: %f, %f, %f\n", _groundBoundingBox.max.x - _groundBoundingBox.min.x,
            _groundBoundingBox.max.y - _groundBoundingBox.min.y, _groundBoundingBox.max.z - _groundBoundingBox.min.z);
     _boxTable = BoundingBox{
@@ -53,7 +51,6 @@ Game::~Game()
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
     UnloadModel(_sceneModel);
-    UnloadModel(_test);
     StopMusicStream(_musique);
     UnloadMusicStream(_musique);
     CloseAudioDevice();
@@ -88,18 +85,18 @@ void Game::update()
     }
     _player.update();
 
-    if (IsMouseButtonDown(MOUSE_MIDDLE_BUTTON)) {
-        float deltaX = (_mousePosition.x - _prevMousePosition.x) * 0.01f;
-        float deltaY = (_mousePosition.y - _prevMousePosition.y) * 0.01f;
+    if (!_debugMode) {
+        float latency = 0.01f;
+        _camera.target.x = Lerp(_camera.target.x, _player.getPosition().x, latency);
+        _camera.target.y = Lerp(_camera.target.y, _player.getPosition().y + 3.0f, latency);
+        _camera.target.z = Lerp(_camera.target.z, _player.getPosition().z, latency);
+    }
 
-        float radius = sqrt(pow(_camera.target.x - _camera.position.x, 2) + pow(_camera.target.z - _camera.position.z, 2));
-        float angle = atan2(_camera.target.z - _camera.position.z, _camera.target.x - _camera.position.x) + deltaX;
-
-        _camera.target.x = _camera.position.x + radius * cos(angle);
-        _camera.target.z = _camera.position.z + radius * sin(angle);
-        _camera.target.y += deltaY;
-
-        _prevMousePosition = _mousePosition;
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        _camera.fovy = 5.0f;
+    }
+    if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+        _camera.fovy = 45.0f;
     }
 }
 
@@ -112,7 +109,6 @@ void Game::draw()
     _player.draw();
     DrawModel(_groundModel, {0.0f, -3.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {0.0f, -10.0f, 5.0f}, 10.0f, WHITE);
-    //DrawModel(_test, {0.0f, 0.0f, 0.0f}, 10.0f, WHITE);
     EndMode3D();
     DrawFPS(10, 10);
     EndDrawing();

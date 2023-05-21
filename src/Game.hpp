@@ -39,8 +39,7 @@ class Game
         Model _playerModel;
         Model _groundModel;
         Model _sceneModel;
-        Model _test;
-        Texture2D _texture1; // TODO Vector textures
+        Texture2D _texture1;
         Texture2D _texture2;
         BoundingBox _boxTable;
         BoundingBox _groundBoundingBox;
