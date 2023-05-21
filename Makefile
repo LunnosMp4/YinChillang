@@ -103,3 +103,9 @@ run: all
 	@echo "$(BLUE)Running program...$(RESET)"
 	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
 	@./$(NAME) $(ARGS)
+
+rerun: re
+	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
+	@echo "$(BLUE)Running program...$(RESET)"
+	@echo $(shell printf "%-$(HALF_COLUMNS)s" " " | tr " " "-")
+	@./$(NAME) $(ARGS)

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "YinChillang.hpp"
+#include "GameObject/Obstacle.hpp"
 
 class Enemy {
     // Définissez les propriétés et les méthodes spécifiques à l'ennemi
@@ -30,6 +31,7 @@ class Game
     private:
         bool _debugMode = false;
         Player _player;
+        Obstacle _obstacle;
         Enemy _enemy;
         Level _level;
         bool _cameraMovementEnabled;
@@ -46,7 +48,6 @@ class Game
         Music _music;
         Sound _jump_chevre;
         Sound _death_sond;
-        std::vector<Obstacle> _obstacles;
         float _obstacleSpeed;
         float _gameDifficulty;
         float _spawnTimer;

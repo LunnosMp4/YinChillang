@@ -4,42 +4,50 @@
 
 #include "Obstacle.hpp"
 
-Obstacle::Obstacle(Vector3 pos, Vector3 sz, float spd)
-: position(pos), _size(sz), _speed(spd) {}
+Obstacle::Obstacle()
+{
+    wall_s._pos = { 100.0f, -3, (float)GetRandomValue(-51, 51) };
+    wall_s._size = { (float)GetRandomValue(1, 5), 10.0f, 100.0f };
+    wall_s._speed = 50.0f;
+
+    wall_s._spawnIntervalMin = 1.0f;
+    wall_s._spawnIntervalMax = 5.0f;
+    wall_s._spawnInterval = GetRandomValue(wall_s._spawnIntervalMin, wall_s._spawnIntervalMax);
+
+    wall_s._spawnTimer = 0.0f;
+
+    _obstacleType = 1;
+}
 
 void Obstacle::update()
 {
-    position.x -= _speed * GetFrameTime();
+    wall_s._spawnTimer += GetFrameTime();
+    wall_s._pos = { 100.0f, -3, (float)GetRandomValue(-51, 51) };
+    wall_s._size = { (float)GetRandomValue(1, 5), 10.0f, 100.0f };
+    wall_s._spawnInterval = GetRandomValue(wall_s._spawnIntervalMin, wall_s._spawnIntervalMax);
+
+    switch (_obstacleType) {
+        case 1:
+            for (auto& wall : walls)
+                wall.update();
+            if (wall_s._spawnTimer < wall_s._spawnInterval)
+                break;
+            Wall newWall(wall_s._pos, wall_s._size, wall_s._speed);
+            walls.push_back(newWall);
+            wall_s._speed += 5.0f;
+            wall_s._spawnTimer = 0.0f;
+            break;
+    }
 }
 
 void Obstacle::draw()
 {
-    DrawCube(position, _size.x, _size.y, _size.z, _color);
-}
-
-BoundingBox Obstacle::getBoundingBox()
-{
-    return {
-        (Vector3){position.x - _size.x / 2, position.y - _size.y / 2, position.z - _size.z / 2},
-        (Vector3){position.x + _size.x / 2, position.y + _size.y / 2, position.z + _size.z / 2}
-    };
-}
-
-void Obstacle::destroy()
-{
-    delete this;
-}
-
-Vector3 Obstacle::getPosition()
-{
-    return position;
-}
-
-void Obstacle::updateColor()
-{
-    float time = GetTime() * 0.1f;
-    float r = (sinf(time * _speed) + 1.0f) * 0.5f;
-    float g = (sinf(time * _speed + PI * 2.0f / 3.0f) + 1.0f) * 0.5f;
-    float b = (sinf(time * _speed + PI * 4.0f / 3.0f) + 1.0f) * 0.5f;
-    _color = { static_cast<unsigned char>(r * 255), static_cast<unsigned char>(g * 255), static_cast<unsigned char>(b * 255), 255 };
+    switch (_obstacleType) {
+        case 1:
+            for (auto& wall : walls)
+                wall.draw();
+            break;
+        default:
+            break;
+    }
 }

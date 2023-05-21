@@ -15,6 +15,6 @@
 
 #include "../src/GameObject/GameObject.hpp"
 #include "Player.hpp"
-#include "GameObject/Obstacle.hpp"
+#include "GameObject/Wall.hpp"
 
 float randomFloatBetween(float start, float end);

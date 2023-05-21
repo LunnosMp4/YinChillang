@@ -8,18 +8,26 @@
 
 class Obstacle {
     public:
-        Obstacle(Vector3 pos, Vector3 sz, float spd);
+        Obstacle();
 
         void update();
         void draw();
-        BoundingBox getBoundingBox();
-        void destroy();
-        Vector3 getPosition();
-        void updateColor();
 
+        std::vector<Wall> walls;
     private:
-        Color _color;
-        Vector3 position;
-        Vector3 _size;
-        float _speed;
+        struct WallSettings {
+            Vector3 _pos;
+            Vector3 _size;
+            float _speed;
+
+            float _spawnIntervalMin;
+            float _spawnIntervalMax;
+            float _spawnInterval;
+
+            float _spawnTimer;
+        };
+
+        WallSettings wall_s;
+
+        int _obstacleType;
 };

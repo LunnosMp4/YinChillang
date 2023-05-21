@@ -4,7 +4,7 @@
 
 #include "Game.hpp"
 
-Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficulty(1.0f), _spawnTimer(0.0f)
+Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacle(), _obstacleSpeed(10.0f), _gameDifficulty(1.0f), _spawnTimer(0.0f)
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(GetMonitorWidth(0), GetMonitorHeight(0), "YinChillang");
@@ -57,6 +57,7 @@ Game::~Game()
     UnloadTexture(_texture2);
     UnloadModel(_groundModel);
     UnloadModel(_sceneModel);
+    UnloadModel(_playerModel);
     StopMusicStream(_music);
     UnloadMusicStream(_music);
     UnloadSound(_jump_chevre);
@@ -76,7 +77,6 @@ void Game::run()
         }
         UpdateMusicStream(_music);
         draw();
-        _spawnTimer += GetFrameTime();
         if (IsKeyPressed(KEY_ESCAPE))
             break;
     }
@@ -101,14 +101,11 @@ void Game::update()
         }
     }
     _player.update();
+    _obstacle.update();
 
-    for (auto& obstacle : _obstacles) {
-        obstacle.update();
-        obstacle.updateColor();
-
+    for (auto &obstacle : _obstacle.walls) {
         if (CheckCollisionBoxes(obstacle.getBoundingBox(), _player.getBoundingBox()) && !_debugMode) {
             _player.setDead(true);
-            break;
         }
     }
 
@@ -127,15 +124,6 @@ void Game::update()
     if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
         _camera.fovy = 45.0f;
     }
-
-    float spawnInterval = GetRandomValue(2000, 5000) / 1000.0f;
-    if (_spawnTimer >= spawnInterval) {
-        Vector3 spawnPosition = { 51.0f, 5, static_cast<float>(GetRandomValue(-51, 51)) };
-        Vector3 spawnSize = { static_cast<float>(GetRandomValue(1, 5)), 7.0f, 100.0f };
-        Obstacle newObstacle(spawnPosition, spawnSize, _obstacleSpeed);
-        _obstacles.push_back(newObstacle);
-        _spawnTimer = 0.0f;
-    }
 }
 
 void Game::draw()
@@ -144,12 +132,12 @@ void Game::draw()
     ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
     drawDebug();
+
     _player.draw();
-    for (auto& obstacle : _obstacles) {
-        obstacle.draw();
-    }
+    _obstacle.draw();
     DrawModel(_groundModel, {0.0f, -2.0f, 0.0f}, 1.0f, WHITE);
     DrawModel(_sceneModel, {0.0f, -10.0f, 5.0f}, 10.0f, WHITE);
+
     EndMode3D();
     DrawFPS(10, 10);
     EndDrawing();
