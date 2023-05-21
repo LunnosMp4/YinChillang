@@ -44,7 +44,8 @@ Game::Game(): _player({ 0.0f, 0.0f, 0.0f }), _obstacleSpeed(10.0f), _gameDifficu
     _jump_chevre = LoadSound("ressources/chevre.mp3");
     SetSoundVolume(_jump_chevre, 0.5f);
     _death_sond = LoadSound("ressources/greg.mp3");
-    SetSoundVolume(_jump_chevre, 0.7f);
+    SetSoundVolume(_death_sond, 1.7f);
+    _player.greg = _death_sond;
 
     DisableCursor();
     SetTargetFPS(144);
@@ -75,8 +76,6 @@ void Game::run()
         }
         UpdateMusicStream(_music);
         draw();
-        if (_player.isDead())
-            PlaySound(_death_sond);
         _spawnTimer += GetFrameTime();
         if (IsKeyPressed(KEY_ESCAPE))
             break;

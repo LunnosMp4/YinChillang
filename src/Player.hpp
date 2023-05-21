@@ -24,6 +24,7 @@ class Player: public GameObject
 
     public:
         bool isAnimating;
+        Sound greg;
 
     private:
         Model _playerModel;

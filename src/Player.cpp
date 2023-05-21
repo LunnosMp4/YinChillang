@@ -17,7 +17,7 @@ Player::Player(Vector3 position)
     isAnimating = false;
     _animationDuration = 1.0f;
     _isAnimationTriggered = false;
-    _waitDuration = 3.0f;
+    _waitDuration = 0.5f;
     _waitTimeElapsed = 0.0f;
     _isWaiting = false;
     _isRotating = false;
@@ -102,6 +102,7 @@ void Player::animate()
 
     if (_isRotating) {
         _playerModel.transform = MatrixRotateX(DEG2RAD * -110.0f);
+        PlaySound(greg);
         _isRotating = false;
     }
 }
